@@ -10,7 +10,8 @@ public:
 	Person(string n = "", string c = "");
 	virtual void setter();
 	virtual void getter();
-};
+	virtual ~Person();
+};	
 Person::Person(string n, string c) 
 	: name(n), cnic(c) {
 	
@@ -21,18 +22,19 @@ void Person::setter() {
 	cout << "Enter name: ";
 	getline(cin, name);
 	cout << "Enter cnic: ";
-	cin.ignore();
 	getline(cin, cnic);
 }
 void Person::getter() {
 	cout << "Name: " << name << "  cnic: " << cnic << endl;
 }
+Person::~Person() {
 
+}
 class Student : virtual public Person {
 	string degree_program;
 	float cgpa;
 public:
-	Student(string n = "", string c = "", string d = 0, float g = 0.0);
+	Student(string n = "", string c = "", string d = "", float g = 0.0);
 	void setter();
 	void getter();
 };
@@ -81,7 +83,7 @@ void Teacher::getter() {
 
 int main() {
 	int choice{}, n{}, nt{}, ns{};
-	Person* arr[MAX];
+	Person* arr[MAX] {};
 	while (true) {
 		cout << "Menu\n"
 			<< "1: Create Teacher\n"
@@ -103,7 +105,7 @@ int main() {
 			ns++;
 			break;
 		case 3:  //Display all
-			for (int i = 0; i <= n;i++) {
+			for (int i = 0; i < n;i++) {
 				arr[i]->getter();
 			}
 			break;
@@ -113,7 +115,7 @@ int main() {
 			break;
 		case 5:
 			for (int i = 0; i < n; i++) {
-				delete[] arr;
+				delete arr[i];
 			}
 			return 0;
 		default:
