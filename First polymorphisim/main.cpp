@@ -10,7 +10,6 @@ public:
 	Person(string n = "", string c = "");
 	virtual void setter();
 	virtual void getter();
-	virtual ~Person();
 };
 Person::Person(string n, string c) 
 	: name(n), cnic(c) {
@@ -28,9 +27,7 @@ void Person::setter() {
 void Person::getter() {
 	cout << "Name: " << name << "  cnic: " << cnic << endl;
 }
-Person::~Person() {
-	
-}
+
 class Student : virtual public Person {
 	string degree_program;
 	float cgpa;
@@ -38,7 +35,6 @@ public:
 	Student(string n = "", string c = "", string d = 0, float g = 0.0);
 	void setter();
 	void getter();
-	~Student();
 };
 Student::Student(string n, string c, string d, float g)
 	: Person(n, c), degree_program(d), cgpa(g) {
@@ -56,9 +52,7 @@ void Student::getter() {
 	Person::getter();
 	cout << "Degree Program: " << degree_program << " cgpa: " << cgpa << endl;
 }
-Student::~Student() {
-	
-}
+
 class Teacher : virtual public Person {
 	string deperatment;
 	int no_of_publication;
@@ -66,7 +60,6 @@ public:
 	Teacher(string n = "", string c = "", string d = "", int no = 0);
 	void setter();
 	void getter();
-	~Teacher();
 };
 Teacher::Teacher(string n, string c, string d, int no)
 	: Person(n, c), deperatment(d), no_of_publication(no) {
@@ -84,13 +77,10 @@ void Teacher::getter() {
 	Person::getter();
 	cout << "Department: " << deperatment << "  no of Publication: " << no_of_publication << endl;
 }
-Teacher::~Teacher() {
 
-}
 
 int main() {
-	int choice{}, n{};
-	char loop;
+	int choice{}, n{}, nt{}, ns{};
 	Person* arr[MAX];
 	while (true) {
 		cout << "Menu\n"
@@ -102,21 +92,25 @@ int main() {
 		cout << "Which option you wants to choose: ";
 		cin >> choice;
 		switch (choice) {
-		case 1: {
+		case 1: // Create a Teacher
 			arr[n] = new Teacher;
-			arr[n]->setter();
-			n++;
+			arr[n++]->setter();
+			nt++;
 			break;
-		}
-		case 2: {
+		case 2: //Create a Student
 			arr[n] = new Student;
-			arr[n]->setter();
-			n++;
+			arr[n++]->setter();
+			ns++;
 			break;
-		}
-		case 3: {
+		case 3:  //Display all
+			for (int i = 0; i <= n;i++) {
+				arr[i]->getter();
+			}
 			break;
-		}
+		case 4:
+			cout << "Number of teachers: " << nt << endl;
+			cout << "Number of Student: " << ns << endl;
+			break;
 		case 5:
 			for (int i = 0; i < n; i++) {
 				delete[] arr;
