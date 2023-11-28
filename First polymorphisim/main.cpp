@@ -1,36 +1,35 @@
 #include <iostream>
 #include <string>
+#define MAX 100
 using namespace std;
 class Person {
+protected:
 	string name;
 	string cnic;
-	static int no_of_person;
 public:
-	static int num_person();
 	Person(string n = "", string c = "");
 	virtual void setter();
 	virtual void getter();
 	virtual ~Person();
 };
-int Person::no_of_person = 0;
 Person::Person(string n, string c) 
 	: name(n), cnic(c) {
-	no_of_person++;
+	
 }
-int Person::num_person() {
-	return no_of_person;
-}
+
 void Person::setter() {
+	cin.ignore();
 	cout << "Enter name: ";
 	getline(cin, name);
 	cout << "Enter cnic: ";
-	cin >> cnic;
+	cin.ignore();
+	getline(cin, cnic);
 }
 void Person::getter() {
 	cout << "Name: " << name << "  cnic: " << cnic << endl;
 }
 Person::~Person() {
-	no_of_person--;
+	
 }
 class Student : virtual public Person {
 	string degree_program;
@@ -47,6 +46,7 @@ Student::Student(string n, string c, string d, float g)
 }
 void Student::setter() {
 	Person::setter();
+	cin.ignore();
 	cout << "Enter degree Program: ";
 	getline(cin, degree_program);
 	cout << "Enter cgpa: ";
@@ -74,6 +74,7 @@ Teacher::Teacher(string n, string c, string d, int no)
 }
 void Teacher::setter() {
 	Person::setter();
+	cin.ignore();
 	cout << "Enter Department: ";
 	getline(cin, deperatment);
 	cout << "NO of Publication: ";
@@ -86,28 +87,45 @@ void Teacher::getter() {
 Teacher::~Teacher() {
 
 }
-void display_person() {
-	cout << "No of Person: " << Person::num_person() << endl;
-}
+
 int main() {
-	cout << "Menu\n"
-		<< "1: Create Teacher\n"
-		<< "2: Create Student\n"
-		<< "3: Display All\n"
-		<< "4: Dispaly number\n"
-		<< "5: Exit" << endl;
-	display_person();
-	{
-		Person obj1("Rehan", "81202-6816566-1");
-		obj1.getter();
-		display_person();
-		Student obj2("Rehan", "81202-6816566-1", "SE", 3.5);
-		obj2.getter();
-		display_person();
+	int choice{}, n{};
+	char loop;
+	Person* arr[MAX];
+	while (true) {
+		cout << "Menu\n"
+			<< "1: Create Teacher\n"
+			<< "2: Create Student\n"
+			<< "3: Display All\n"
+			<< "4: Dispaly number\n"
+			<< "5: Exit" << endl;
+		cout << "Which option you wants to choose: ";
+		cin >> choice;
+		switch (choice) {
+		case 1: {
+			arr[n] = new Teacher;
+			arr[n]->setter();
+			n++;
+			break;
+		}
+		case 2: {
+			arr[n] = new Student;
+			arr[n]->setter();
+			n++;
+			break;
+		}
+		case 3: {
+			break;
+		}
+		case 5:
+			for (int i = 0; i < n; i++) {
+				delete[] arr;
+			}
+			return 0;
+		default:
+			cout << "You enter wrong choice" << endl;
+			break;
+		}
 	}
-	Teacher obj3("Sir Nadeem", "918598", "SE", 2);
-	Person* p1 = &obj3;
-	p1->getter();
-	display_person();
 	return 0;
 }
