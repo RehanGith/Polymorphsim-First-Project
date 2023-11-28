@@ -106,7 +106,8 @@ int main() {
 		display_person();
 	}
 	Teacher obj3("Sir Nadeem", "918598", "SE", 2);
-	obj3.getter();
+	Person* p1 = &obj3;
+	p1->getter();
 	display_person();
 	return 0;
 }
