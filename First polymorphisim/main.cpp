@@ -57,6 +57,7 @@ void Student::setter() {
 	cin >> cgpa;
 }
 void Student::getter() {
+	cout << "***Student***" << endl;
 	Person::getter();
 	cout << "Degree Program: " << degree_program << " cgpa: " << cgpa << endl;
 }
@@ -87,6 +88,7 @@ void Teacher::setter() {
 	cin >> no_of_publication;
 }
 void Teacher::getter() {
+	cout << "***Teacher***" << endl;
 	Person::getter();
 	cout << "Department: " << deperatment << "  no of Publication: " << no_of_publication << endl;
 }
@@ -118,6 +120,7 @@ int main() {
 		case 3:  //Display all
 			for (int i = 0; i < n;i++) {
 				arr[i]->getter();
+				arr[i]->isoutstanding();
 			}
 			break;
 		case 4:
