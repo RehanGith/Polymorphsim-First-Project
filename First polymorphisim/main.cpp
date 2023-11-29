@@ -10,6 +10,7 @@ public:
 	Person(string n = "", string c = "");
 	virtual void setter();
 	virtual void getter();
+	virtual void isoutstanding() = 0;
 	virtual ~Person();
 };	
 Person::Person(string n, string c) 
@@ -37,6 +38,11 @@ public:
 	Student(string n = "", string c = "", string d = "", float g = 0.0);
 	void setter();
 	void getter();
+	void isoutstanding() {
+		if (cgpa > 3.0) {
+			cout << "***Outstanding***" << endl;
+		}
+	}
 };
 Student::Student(string n, string c, string d, float g)
 	: Person(n, c), degree_program(d), cgpa(g) {
@@ -62,6 +68,11 @@ public:
 	Teacher(string n = "", string c = "", string d = "", int no = 0);
 	void setter();
 	void getter();
+	void isoutstanding() {
+		if (no_of_publication > 10) {
+			cout << "***Outstanding***" << endl;
+		}
+	}
 };
 Teacher::Teacher(string n, string c, string d, int no)
 	: Person(n, c), deperatment(d), no_of_publication(no) {
